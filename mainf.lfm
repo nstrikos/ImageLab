@@ -1,0 +1,78 @@
+object MainForm: TMainForm
+  Left = 371
+  Height = 313
+  Top = 209
+  Width = 437
+  Caption = 'MainForm'
+  ClientHeight = 282
+  ClientWidth = 437
+  Menu = MainMenu
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.8.2.0'
+  object ScrollBox: TScrollBox
+    Left = 120
+    Height = 150
+    Top = 104
+    Width = 150
+    HorzScrollBar.Page = 90
+    VertScrollBar.Page = 90
+    ClientHeight = 146
+    ClientWidth = 146
+    TabOrder = 0
+    object Image: TImage
+      Left = 0
+      Height = 90
+      Top = 0
+      Width = 90
+      OnMouseDown = ImageMouseDown
+      OnMouseMove = ImageMouseMove
+      OnMouseUp = ImageMouseUp
+    end
+  end
+  object MainMenu: TMainMenu
+    left = 40
+    top = 24
+    object FileMenuItem: TMenuItem
+      Caption = 'File'
+      object OpenMenuItem: TMenuItem
+        Caption = 'Open image'
+        OnClick = OpenMenuItemClick
+      end
+      object SaveMenuItem: TMenuItem
+        Caption = 'Save image as ...'
+        OnClick = SaveMenuItemClick
+      end
+      object CloseMenuItem: TMenuItem
+        Caption = 'Close'
+        OnClick = CloseMenuItemClick
+      end
+    end
+    object ProcessMenuItem: TMenuItem
+      Caption = 'Process'
+      object MagnifyMenuItem: TMenuItem
+        Caption = 'Magnify'
+        object PolyramaMenuItem: TMenuItem
+          Caption = 'Polyrama'
+          OnClick = PolyramaMenuItemClick
+        end
+      end
+    end
+  end
+  object OpenPictureDialog: TOpenPictureDialog
+    left = 168
+    top = 24
+  end
+  object SavePictureDialog: TSavePictureDialog
+    FileName = '/home/nick'
+    InitialDir = '/home/'
+    left = 312
+    top = 32
+  end
+  object Timer: TTimer
+    Interval = 10
+    OnTimer = TimerTimer
+    left = 361
+    top = 128
+  end
+end

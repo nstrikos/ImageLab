@@ -1,0 +1,9 @@
+*.ppu
+*.o
+backup/*
+lib/*
+imageLab
+
+
+
+
