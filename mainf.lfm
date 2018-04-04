@@ -69,10 +69,4 @@ object MainForm: TMainForm
     left = 312
     top = 32
   end
-  object Timer: TTimer
-    Interval = 10
-    OnTimer = TimerTimer
-    left = 361
-    top = 128
-  end
 end

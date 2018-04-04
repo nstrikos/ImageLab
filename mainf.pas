@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ExtCtrls, ExtDlgs, ImageProcess;
+  ExtCtrls, ExtDlgs, BGRABitmap, BitmapProcess;
 
 type
 
@@ -25,7 +25,6 @@ type
     OpenPictureDialog: TOpenPictureDialog;
     SavePictureDialog: TSavePictureDialog;
     ScrollBox: TScrollBox;
-    Timer: TTimer;
     procedure CloseMenuItemClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -38,13 +37,11 @@ type
     procedure OpenMenuItemClick(Sender: TObject);
     procedure PolyramaMenuItemClick(Sender: TObject);
     procedure SaveMenuItemClick(Sender: TObject);
-    procedure TimerTimer(Sender: TObject);
-  private
+ private
      mouseIsDown : Boolean;
      startDragX : Integer;
      startDragY : Integer;
      count : Integer;
-     imProcess : TImageProcess;
   public
 
   end;
@@ -65,12 +62,11 @@ begin
      ScrollBox.VertScrollBar.Tracking := true;
      mouseIsDown := false;
      count := 0;
-     imProcess := TImageProcess.Create;
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
-     imProcess.Destroy;
+
 end;
 
 procedure TMainForm.CloseMenuItemClick(Sender: TObject);
@@ -136,23 +132,34 @@ begin
      end;
 end;
 
-procedure TMainForm.TimerTimer(Sender: TObject);
-begin
-  Caption:=IntToStr(Round(imProcess.GetProgess));
-end;
-
 procedure TMainForm.PolyramaMenuItemClick(Sender: TObject);
 var
+    inBitmap, outBitmap : TBGRABitmap;
     fm : Single;
-    finalWidth, finalHeight : Integer;
+    iWidth, iHeight, oWidth, oHeight : Integer;
+    rect : TRect;
 begin
     //MagniFyFactorForm.ShowModal;
     fm := 5;
-    finalWidth := round (Image.Picture.Bitmap.Width * fm);
-    finalHeight := round (Image.Picture.Bitmap.Height * fm);
-    imProcess.Magnify(@Image, fm);
+
+    iWidth := Image.Picture.Bitmap.Width;
+    iHeight := Image.Picture.Bitmap.Height;
+    rect := TRect.Create(0, 0, iWidth, iHeight);
+    inBitmap := TBGRABitmap.Create(iWidth, iHeight);
+    inBitmap.Canvas.CopyRect(rect, Image.Picture.Bitmap.Canvas, rect);
+
+    oWidth := round (iWidth * fm);
+    oHeight := round (iHeight * fm);
+    outBitmap := TBGRABitmap.Create(oWidth, oHeight);
+    BGRABicubicPolyrama(inBitmap, fm, outBitmap);
+    //imProcess.Magnify(@Image, fm);
+    Image.Picture.Bitmap.Assign(outBitmap);
+    Image.Width := oWidth;
+    Image.Height := oHeight;
     ScrollBox.HorzScrollBar.Position := 0;
     ScrollBox.VertScrollBar.Position := 0;
+    inBitmap.Free;
+    outBitmap.Free;
 end;
 
 end.

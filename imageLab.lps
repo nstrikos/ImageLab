@@ -18,9 +18,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="mainF"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="38"/>
-        <CursorPos X="32" Y="47"/>
+        <TopLine Value="140"/>
+        <CursorPos X="28" Y="158"/>
         <UsageCount Value="25"/>
       </Unit1>
       <Unit2>
@@ -1285,8 +1286,8 @@
         <Filename Value="libraries/imagelab/processthread.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ProcessThread"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
         <CursorPos X="34" Y="8"/>
         <UsageCount Value="20"/>
       </Unit141>
